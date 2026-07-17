@@ -120,23 +120,30 @@ func runLogin(_ *cobra.Command, _ []string) error {
 }
 
 func logoutCmd() *cobra.Command {
-	return &cobra.Command{
+	var forget bool
+	c := &cobra.Command{
 		Use:   "logout",
 		Short: "Remove stored Nyxtra credentials",
 		RunE: func(_ *cobra.Command, _ []string) error {
-			// Drop the token but remember which deployment this machine talks
-			// to, so a plain `warden login` returns to the same place.
-			if c, err := loadCredentials(); err == nil && c.IssuerURL != "" {
-				stripped := &Credentials{
-					IssuerURL:       c.IssuerURL,
-					ClientID:        c.ClientID,
-					ControlPlaneURL: c.ControlPlaneURL,
+			// By default drop the token but remember which deployment this
+			// machine talks to, so a plain `warden login` returns to the same
+			// place. --forget also drops the remembered issuer, so the next
+			// login falls back to the default (https://nyxtra.dev) — the way
+			// out of a stale dev deployment pinned by a past login.
+			if !forget {
+				if c, err := loadCredentials(); err == nil && c.IssuerURL != "" {
+					stripped := &Credentials{
+						IssuerURL:       c.IssuerURL,
+						ClientID:        c.ClientID,
+						ControlPlaneURL: c.ControlPlaneURL,
+					}
+					if err := saveCredentials(stripped); err != nil {
+						return err
+					}
+					fmt.Println("Logged out (token removed; still pointed at " + c.IssuerURL + ").")
+					fmt.Println("  Use `warden logout --forget` to also reset the target to https://nyxtra.dev.")
+					return nil
 				}
-				if err := saveCredentials(stripped); err != nil {
-					return err
-				}
-				fmt.Println("Logged out (token removed).")
-				return nil
 			}
 			if err := clearCredentials(); err != nil {
 				return err
@@ -145,6 +152,8 @@ func logoutCmd() *cobra.Command {
 			return nil
 		},
 	}
+	c.Flags().BoolVar(&forget, "forget", false, "also forget the remembered deployment (next login uses the https://nyxtra.dev default)")
+	return c
 }
 
 // openBrowser opens url in the user's default browser (best effort).

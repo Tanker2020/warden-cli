@@ -11,9 +11,9 @@
 #      (default: %LOCALAPPDATA%\Programs\warden).
 #   4. Adds the install dir to your *user* PATH if it isn't already there.
 #
-# Requirements: Windows 10/11, PowerShell 5.1+ (built in). The build needs the
-# sibling Security-As-Code repo (this module imports its language front-end
-# via a `replace` directive) - the script checks and says so if it's missing.
+# Requirements: Windows 10/11, PowerShell 5.1+ (built in). The build pulls all
+# dependencies (including the sac-lang language front-end) from the network -
+# no sibling repos required.
 
 $ErrorActionPreference = 'Stop'
 
@@ -27,15 +27,6 @@ $InstallDir   = if ($env:WARDEN_INSTALL_DIR) { $env:WARDEN_INSTALL_DIR } else { 
 $ToolchainDir = Join-Path $env:USERPROFILE '.warden\toolchain'
 $GoVersion    = if ($env:WARDEN_GO_VERSION) { $env:WARDEN_GO_VERSION } else { '1.25.1' }  # used only when Go isn't installed
 $MinGoMinor   = 24                                                                        # go.mod says go 1.24
-
-# ---------- sanity: sibling repo for the replace directive ----------
-if (-not (Test-Path (Join-Path $RepoDir '..\Security-As-Code'))) {
-    Die @"
-expected the Security-As-Code repo next to this one (..\Security-As-Code).
-The warden CLI embeds its language front-end (sac/lang/...) from there.
-Clone it as a sibling directory and re-run.
-"@
-}
 
 # ---------- 1. find or fetch Go ----------
 function Test-GoOk($goExe) {

@@ -44,11 +44,9 @@ Both scripts handle everything:
   already there. Open a new terminal afterwards.
 
 The CLI embeds its language front-end (`.sac` parser + classifier) from the
-public **`github.com/Prithul-the-creator/sac-lang`** module. Until that module is pushed
-and tagged, `go.mod` carries a local `replace` pointing at a sibling checkout
-(`../sac-lang`), and the install script checks for it. Once `sac-lang` is
-published and the `replace` line is removed, a clean clone builds with **no
-sibling repos** — nothing private required.
+public **`github.com/Prithul-the-creator/sac-lang`** module, pulled from the
+network like any other dependency. A clean clone builds with **no sibling
+repos** — nothing private required.
 
 ## First run
 
@@ -99,12 +97,10 @@ are merged additively against what's live.
 ## Development
 
 ```sh
-go build ./...    # needs ../sac-lang checked out (local replace directive)
+go build ./...    # pulls all deps (incl. sac-lang) from the network
 go test ./...
 go run ./cmd/warden --help
 ```
 
-The `.sac` front-end lives in `github.com/Prithul-the-creator/sac-lang`. To publish it:
-push the `sac-lang/` module to that repo, tag `v0.1.0`, then delete the
-`replace github.com/Prithul-the-creator/sac-lang => ../sac-lang` line in `go.mod` — after
-that a clean clone of this repo builds on its own.
+The `.sac` front-end lives in the public `github.com/Prithul-the-creator/sac-lang`
+module, resolved from the network — a clean clone of this repo builds on its own.

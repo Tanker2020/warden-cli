@@ -43,10 +43,12 @@ Both scripts handle everything:
   macOS/Linux, the persistent *user* PATH on Windows — only if it isn't
   already there. Open a new terminal afterwards.
 
-Building requires the `Security-As-Code` repo checked out **next to this
-one** — the CLI embeds its language front-end (`sac/lang/parser`,
-`sac/lang/classifier`) via a local `replace` directive in `go.mod`. The
-script checks and tells you if it's missing.
+The CLI embeds its language front-end (`.sac` parser + classifier) from the
+public **`github.com/Tanker2020/sac-lang`** module. Until that module is pushed
+and tagged, `go.mod` carries a local `replace` pointing at a sibling checkout
+(`../sac-lang`), and the install script checks for it. Once `sac-lang` is
+published and the `replace` line is removed, a clean clone builds with **no
+sibling repos** — nothing private required.
 
 ## First run
 
@@ -97,10 +99,12 @@ are merged additively against what's live.
 ## Development
 
 ```sh
-go build ./...    # needs ../nyxtra/Security-As-Code checked out (replace directive)
+go build ./...    # needs ../sac-lang checked out (local replace directive)
 go test ./...
 go run ./cmd/warden --help
 ```
 
-When this repo is published, `sac/lang` splits into its own public module and
-the `replace` directive goes away.
+The `.sac` front-end lives in `github.com/Tanker2020/sac-lang`. To publish it:
+push the `sac-lang/` module to that repo, tag `v0.1.0`, then delete the
+`replace github.com/Tanker2020/sac-lang => ../sac-lang` line in `go.mod` — after
+that a clean clone of this repo builds on its own.

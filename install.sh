@@ -12,9 +12,11 @@
 #   4. Ensures the install dir is on PATH (appends one line to your shell rc
 #      only if it isn't already).
 #
-# Requirements: bash, curl (or wget), tar; macOS or Linux. The build needs the
-# sibling Security-As-Code repo (this module imports its language front-end
-# via a `replace` directive) — the script checks and says so if it's missing.
+# Requirements: bash, curl (or wget), tar; macOS or Linux. Until the sac-lang
+# language front-end is published, the build needs it as a sibling checkout
+# (../sac-lang) via a local `replace` — the script checks and says so if it's
+# missing. Once sac-lang is published and the replace is removed, no sibling is
+# needed.
 
 set -euo pipefail
 
@@ -30,11 +32,19 @@ TOOLCHAIN_DIR="$HOME/.warden/toolchain"
 GO_VERSION="${WARDEN_GO_VERSION:-1.25.1}"   # used only when Go isn't installed
 MIN_GO_MINOR=24                              # go.mod says go 1.24
 
-# ---------- sanity: sibling repo for the replace directive ----------
-if [ ! -d "$REPO_DIR/../nyxtra/Security-As-Code" ]; then
-  die "expected the Security-As-Code repo next to this one (../nyxtra/Security-As-Code).
-       The warden CLI embeds its language front-end (sac/lang/...) from there.
-       Clone it as a sibling directory and re-run."
+# ---------- sanity: language front-end (sac-lang) ----------
+# The CLI embeds the public sac-lang front-end (parser + classifier). Until it's
+# published to github.com/Tanker2020/sac-lang and go.mod's local `replace` is
+# removed, sac-lang must be checked out as a sibling directory (../sac-lang).
+# Once published + replace removed, this whole check goes away — a clean clone
+# builds with no sibling repos.
+if grep -q '^replace github.com/Tanker2020/sac-lang' "$REPO_DIR/go.mod" 2>/dev/null; then
+  if [ ! -d "$REPO_DIR/../sac-lang" ]; then
+    die "expected the sac-lang module next to this one (../sac-lang).
+       go.mod still has a local replace for it (not yet published). Clone
+       github.com/Tanker2020/sac-lang as a sibling directory and re-run — or,
+       once it's published, delete the replace line in go.mod."
+  fi
 fi
 
 # ---------- fetch helper (curl or wget) ----------

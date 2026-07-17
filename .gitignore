@@ -1,3 +1,6 @@
 .env
-warden
-warden.exe
+# Built binaries at the repo root only — anchored with a leading slash so this
+# does NOT also ignore the cmd/warden/ source directory (a bare `warden` did,
+# which is why cmd/warden/main.go was silently untracked).
+/warden
+/warden.exe

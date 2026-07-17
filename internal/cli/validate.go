@@ -6,8 +6,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"sac/lang/classifier"
-	"sac/lang/parser"
+	"github.com/Tanker2020/sac-lang/classifier"
+	"github.com/Tanker2020/sac-lang/parser"
 )
 
 var flagValidateStrict bool

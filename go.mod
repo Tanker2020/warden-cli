@@ -3,12 +3,12 @@ module warden-cli
 go 1.24
 
 require (
+	github.com/Tanker2020/sac-lang v0.1.0
 	github.com/aws/aws-sdk-go-v2 v1.42.0
 	github.com/aws/aws-sdk-go-v2/config v1.32.25
 	github.com/aws/aws-sdk-go-v2/credentials v1.19.24
 	github.com/aws/aws-sdk-go-v2/service/iam v1.54.5
 	github.com/spf13/cobra v1.10.2
-	sac v0.0.0
 )
 
 require (
@@ -37,7 +37,9 @@ require (
 	golang.org/x/tools v0.6.0 // indirect
 )
 
-// The language front-end (lang/parser, lang/classifier) lives in the SaC
-// engine repo. When this CLI goes public, lang/ splits into its own public
-// module and this replace disappears.
-replace sac => ../nyxtra/Security-As-Code
+// The language front-end (parser + classifier) is the public sac-lang module.
+// This replace points at a local checkout for development; once sac-lang is
+// pushed to github.com/Tanker2020/sac-lang and tagged v0.1.0, delete this line
+// and `go build` resolves it from the public repo (a clean clone builds with no
+// private sibling repo required).
+replace github.com/Tanker2020/sac-lang => ../sac-lang

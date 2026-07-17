@@ -36,10 +36,3 @@ require (
 	golang.org/x/text v0.11.0 // indirect
 	golang.org/x/tools v0.6.0 // indirect
 )
-
-// The language front-end (parser + classifier) is the public sac-lang module.
-// This replace points at a local checkout for development. Once sac-lang's
-// go.mod is pushed to github.com/Prithul-the-creator/sac-lang (and, ideally,
-// tagged v0.1.0), DELETE this line and run `go get github.com/Prithul-the-creator/sac-lang@latest`
-// — then a clean clone resolves it from the public repo, no sibling required.
-replace github.com/Prithul-the-creator/sac-lang => ../../sac-lang

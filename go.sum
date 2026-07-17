@@ -1,3 +1,5 @@
+github.com/Prithul-the-creator/sac-lang v0.1.0 h1:0dGG5qQTnHMI9vxejY+ETFM9chvPRrxyvfDcgFhd9UM=
+github.com/Prithul-the-creator/sac-lang v0.1.0/go.mod h1:VLEdgCeqKzBS320eZOjGXL3H7ErUwrFJyHQLWdyqtmE=
 github.com/agext/levenshtein v1.2.1 h1:QmvMAjj2aEICytGiWzmxoE0x2KZvE0fvmqMOfy2tjT8=
 github.com/agext/levenshtein v1.2.1/go.mod h1:JEDfjyjHDjOF/1e4FlBE/PkbqA9OfWu2ki2W0IB5558=
 github.com/apparentlymart/go-textseg/v13 v13.0.0 h1:Y+KvPE1NYz0xl601PVImeQfFyEy6iT90AvPUL1NNfNw=

@@ -5,7 +5,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/Tanker2020/sac-lang/parser"
+	"github.com/Prithul-the-creator/sac-lang/parser"
 )
 
 // metricThreshold matches a comparison whose LHS path looks like a

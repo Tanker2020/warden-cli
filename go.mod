@@ -3,7 +3,7 @@ module warden-cli
 go 1.24
 
 require (
-	github.com/Tanker2020/sac-lang v0.1.0
+	github.com/Prithul-the-creator/sac-lang v0.1.0
 	github.com/aws/aws-sdk-go-v2 v1.42.0
 	github.com/aws/aws-sdk-go-v2/config v1.32.25
 	github.com/aws/aws-sdk-go-v2/credentials v1.19.24
@@ -38,8 +38,8 @@ require (
 )
 
 // The language front-end (parser + classifier) is the public sac-lang module.
-// This replace points at a local checkout for development; once sac-lang is
-// pushed to github.com/Tanker2020/sac-lang and tagged v0.1.0, delete this line
-// and `go build` resolves it from the public repo (a clean clone builds with no
-// private sibling repo required).
-replace github.com/Tanker2020/sac-lang => ../sac-lang
+// This replace points at a local checkout for development. Once sac-lang's
+// go.mod is pushed to github.com/Prithul-the-creator/sac-lang (and, ideally,
+// tagged v0.1.0), DELETE this line and run `go get github.com/Prithul-the-creator/sac-lang@latest`
+// — then a clean clone resolves it from the public repo, no sibling required.
+replace github.com/Prithul-the-creator/sac-lang => ../../sac-lang

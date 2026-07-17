@@ -34,15 +34,15 @@ MIN_GO_MINOR=24                              # go.mod says go 1.24
 
 # ---------- sanity: language front-end (sac-lang) ----------
 # The CLI embeds the public sac-lang front-end (parser + classifier). Until it's
-# published to github.com/Tanker2020/sac-lang and go.mod's local `replace` is
+# published to github.com/Prithul-the-creator/sac-lang and go.mod's local `replace` is
 # removed, sac-lang must be checked out as a sibling directory (../sac-lang).
 # Once published + replace removed, this whole check goes away — a clean clone
 # builds with no sibling repos.
-if grep -q '^replace github.com/Tanker2020/sac-lang' "$REPO_DIR/go.mod" 2>/dev/null; then
+if grep -q '^replace github.com/Prithul-the-creator/sac-lang' "$REPO_DIR/go.mod" 2>/dev/null; then
   if [ ! -d "$REPO_DIR/../sac-lang" ]; then
     die "expected the sac-lang module next to this one (../sac-lang).
        go.mod still has a local replace for it (not yet published). Clone
-       github.com/Tanker2020/sac-lang as a sibling directory and re-run — or,
+       github.com/Prithul-the-creator/sac-lang as a sibling directory and re-run — or,
        once it's published, delete the replace line in go.mod."
   fi
 fi

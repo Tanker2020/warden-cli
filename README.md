@@ -43,10 +43,9 @@ Both scripts handle everything:
   macOS/Linux, the persistent *user* PATH on Windows — only if it isn't
   already there. Open a new terminal afterwards.
 
-The CLI embeds its language front-end (`.sac` parser + classifier) from the
-public **`github.com/Prithul-the-creator/sac-lang`** module, pulled from the
-network like any other dependency. A clean clone builds with **no sibling
-repos** — nothing private required.
+The CLI's language front-end (`.sac` parser + classifier) lives **in this repo**
+under `lang/` — no external module, no clone step. A clean checkout builds with
+**no sibling repos and nothing private required**.
 
 ## First run
 
@@ -97,10 +96,10 @@ are merged additively against what's live.
 ## Development
 
 ```sh
-go build ./...    # pulls all deps (incl. sac-lang) from the network
+go build ./...    # all deps from the public proxy; the .sac front-end is in ./lang
 go test ./...
 go run ./cmd/warden --help
 ```
 
-The `.sac` front-end lives in the public `github.com/Prithul-the-creator/sac-lang`
-module, resolved from the network — a clean clone of this repo builds on its own.
+The `.sac` front-end (parser + classifier) is vendored in-repo under `lang/`, so
+a clean checkout of this repo builds on its own with no external or private deps.

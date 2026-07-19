@@ -6,8 +6,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/Prithul-the-creator/sac-lang/classifier"
-	"github.com/Prithul-the-creator/sac-lang/parser"
+	"warden-cli/lang/classifier"
+	"warden-cli/lang/parser"
 )
 
 var flagValidateStrict bool

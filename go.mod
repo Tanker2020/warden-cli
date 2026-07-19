@@ -3,12 +3,13 @@ module warden-cli
 go 1.24
 
 require (
-	github.com/Prithul-the-creator/sac-lang v0.1.0
 	github.com/aws/aws-sdk-go-v2 v1.42.0
 	github.com/aws/aws-sdk-go-v2/config v1.32.25
 	github.com/aws/aws-sdk-go-v2/credentials v1.19.24
 	github.com/aws/aws-sdk-go-v2/service/iam v1.54.5
+	github.com/hashicorp/hcl/v2 v2.20.1
 	github.com/spf13/cobra v1.10.2
+	github.com/zclconf/go-cty v1.13.0
 )
 
 require (
@@ -26,11 +27,9 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/ssooidc v1.36.6 // indirect
 	github.com/aws/aws-sdk-go-v2/service/sts v1.43.3 // indirect
 	github.com/aws/smithy-go v1.27.1 // indirect
-	github.com/hashicorp/hcl/v2 v2.20.1 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/mitchellh/go-wordwrap v0.0.0-20150314170334-ad45545899c7 // indirect
 	github.com/spf13/pflag v1.0.9 // indirect
-	github.com/zclconf/go-cty v1.13.0 // indirect
 	golang.org/x/mod v0.8.0 // indirect
 	golang.org/x/sys v0.5.0 // indirect
 	golang.org/x/text v0.11.0 // indirect

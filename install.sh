@@ -12,9 +12,9 @@
 #   4. Ensures the install dir is on PATH (appends one line to your shell rc
 #      only if it isn't already).
 #
-# Requirements: bash, curl (or wget), tar; macOS or Linux. The build pulls all
-# dependencies (including the sac-lang language front-end) from the network —
-# no sibling repos required.
+# Requirements: bash, curl (or wget), tar; macOS or Linux. The build pulls its
+# dependencies from the public module proxy; the .sac language front-end ships
+# in-repo under lang/ — no sibling repos and nothing private required.
 
 set -euo pipefail
 

@@ -5,7 +5,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/Prithul-the-creator/sac-lang/parser"
+	"warden-cli/lang/parser"
 )
 
 // metricThreshold matches a comparison whose LHS path looks like a

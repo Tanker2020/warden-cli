@@ -1,0 +1,39 @@
+terraform {
+  required_providers {
+    aws = { source = "hashicorp/aws", version = "~> 5.0" }
+  }
+}
+
+# SAC if-block: fires when a specific CloudWatch alarm triggers
+if condition("event.source == 'aws.cloudwatch' && event.detail.alarmName == 'UnauthorizedAPICalls' && event.detail.state.value == 'ALARM'") {
+  # INFRA block — routed to OpenTofu
+  resource "aws_vpc" "quarantine" {
+    cidr_block           = "10.99.0.0/16"
+    enable_dns_support   = false
+    enable_dns_hostnames = false
+    tags = { Name = "quarantine", ManagedBySAC = "true" }
+  }
+
+  # POLICY block — routed directly to AWS IAM API
+  aws_policy "iam_deny" "compromised_role" {
+    type          = "policy"
+    target_arn    = "arn:aws:iam::123456789012:role/WorkloadRole"
+    effect        = "Deny"
+    actions       = ["*"]
+    resources     = ["*"]
+    condition_key = "aws:RequestedRegion"
+    condition_val = "!us-east-1"
+  }
+
+  # POLICY block — Security Group rule tightening
+  aws_policy "security_group_rule" "revoke_ssh" {
+    type      = "policy"
+    group_id  = "sg-0a1b2c3d4e5f"
+    direction = "ingress"
+    protocol  = "tcp"
+    from_port = 22
+    to_port   = 22
+    cidr_ipv4 = "0.0.0.0/0"
+    action    = "revoke"
+  }
+}

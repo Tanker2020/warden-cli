@@ -11,9 +11,9 @@
 #      (default: %LOCALAPPDATA%\Programs\warden).
 #   4. Adds the install dir to your *user* PATH if it isn't already there.
 #
-# Requirements: Windows 10/11, PowerShell 5.1+ (built in). The build pulls all
-# dependencies (including the sac-lang language front-end) from the network -
-# no sibling repos required.
+# Requirements: Windows 10/11, PowerShell 5.1+ (built in). The build pulls its
+# dependencies from the public module proxy; the .sac language front-end ships
+# in-repo under lang/ - no sibling repos and nothing private required.
 
 $ErrorActionPreference = 'Stop'
 
